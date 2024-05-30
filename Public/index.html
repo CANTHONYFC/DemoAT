@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Apuesta Total | Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="./css/AdminLTE.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <style>
+        .imgHeadLogin {
+            width: 11rem;
+        }
+    </style>
+</head>
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <img class="imgHeadLogin" src="./logofull.5b236246.png" alt="">
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Inicia Session Con tu correo</p>
+
+            <form id="loginForm" method="post">
+                <div class="form-group has-feedback">
+                    <input type="email" class="form-control" id="usuario" placeholder="Email">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+
+                <div class="social-auth-links text-center">
+                    <center> <button href="#" type="submit" class="btn btn-block btn-social btn-facebook btn-flat"><i
+                                class="fa fa-facebook"></i> Sign
+                            Login Now</button>
+                    </center>
+                </div>
+            </form>
+            <!-- /.social-auth-links -->
+
+            <center><a class="text-center" href="#">I forgot my password</a><br>
+                <a href="register.html" class="text-center">Register a new membership</a>
+            </center>
+
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+
+    <script>
+        $(document).ready(function() {
+            $("#loginForm").submit(function(event) {
+                event.preventDefault();
+                var usuario = $("#usuario").val();
+                var password = $("#password").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "../Controllers/LoginController.php",
+                    dataType: "json",
+                    data: {
+                        usuario: usuario,
+                        password: password
+                    },
+                    success: function(response) {
+                        debugger
+                        if (response.success) {
+                            window.location.href = response.redirect;
+                        } else {
+                            $("#mensaje").html(response);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
